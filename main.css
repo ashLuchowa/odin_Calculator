@@ -46,7 +46,7 @@ body {
 
 
 /*--- BUTTONS ---*/
-button {
+.btn {
     height: 78px;
     width: 78px;
     border-radius: 10px;
@@ -57,7 +57,7 @@ button {
     color: rgb(85, 85, 85);
 }
 
-button:hover {
+.btn:hover {
     background-color: rgb(221, 221, 221);
 }
 
