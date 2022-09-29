@@ -1,34 +1,42 @@
 //Variables
 const mainDisplay = document.querySelector('.calc-display-main h2')
 const subDisplay = document.querySelector('.calc-display-sub p')
-const buttons = document.querySelectorAll('button');
-let currentNum = '0';
-let previousNum = '';
+const clearButton = document.getElementById('clr-btn');
+const equalButton = document.getElementById('equal-btn');
+let firstNum = 0;
+let secondNum = 0;
 let Operator = '';
 
 //Display
-mainDisplay.textContent = currentNum;
+mainDisplay.textContent = firstNum;
 subDisplay.textContent = '';
 
 //--- Press Buttons Events --- //
-//Variables
-const num7 = document.getElementById('num7');
-const num2 = document.getElementById('num2');
-const keyAdd = document.getElementById('keyAdd');
-const clearButton = document.getElementById('clr-btn');
-const equalButton = document.getElementById('equal-btn');
-//num7
-num7.addEventListener('click', () => {
-    mainDisplay.textContent = '7';
-});
-//num2
-num2.addEventListener('click', () => {
-    mainDisplay.textContent = '2';
-});
-//+
-keyAdd.addEventListener('click', () => {
-    subDisplay.textContent = subDisplay.textContent + mainDisplay.textContent + '+';
-});
+const btns = document.querySelectorAll('.btn');
+for (const btn of btns) {
+    btn.addEventListener('click', function (firstNum, secondNum, op) {
+
+        firstNum = parseInt(this.value);
+        if (firstNum != secondNum) {
+            secondNum = parseInt(prompt('second num'));
+            op = prompt('operator?');
+            console.log(`firstNum: ${firstNum}, secondNum: ${secondNum}`);
+
+            //Operators
+            if (op === '+') {
+                mainDisplay.textContent = firstNum + secondNum;
+            } else if (op === '-') {
+                mainDisplay.textContent = firstNum - secondNum;
+            } else if (op === '*') {
+                mainDisplay.textContent = firstNum * secondNum;
+            } else if (op === '/') {
+                mainDisplay.textContent = firstNum / secondNum;
+            }
+        }
+
+    });
+}
+
 //Clear
 clearButton.addEventListener('click', () => {
     subDisplay.textContent = '';
@@ -36,6 +44,4 @@ clearButton.addEventListener('click', () => {
 });
 
 
-
-//--- Operators --- //
-//Add
+//How do we store the old number? Prompt seems to work for now
