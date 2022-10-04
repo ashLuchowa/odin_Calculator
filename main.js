@@ -14,7 +14,9 @@ subDisplay.textContent = '';
 //--- Press Buttons Events --- //
 const btns = document.querySelectorAll('.btn');
 for (const btn of btns) {
-    //mainDisplay.textContent = parseInt(this.value);
+    btn.addEventListener('click', function() {
+        console.log(this.value);
+    });
 }
 
 //Equal
