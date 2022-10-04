@@ -16,7 +16,7 @@ body {
 
 /*--- MAIN ---*/
 .calc-body {
-    background-color: rgb(255, 255, 255);
+    border: 2px solid rgb(255, 255, 255);
     max-height: 800px;
     width: 370px;
     border-radius: 15px;
