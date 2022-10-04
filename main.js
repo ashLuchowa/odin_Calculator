@@ -15,19 +15,16 @@ subDisplay.textContent = '';
 const btns = document.querySelectorAll('.btn');
 for (const btn of btns) {
     btn.addEventListener('click', function() {
-        console.log(this.value);
+        if(typeof this.value == 'number') {
+            mainDisplay.textContent = parseInt(this.value);
+        } else {
+            mainDisplay.textContent = this.value;
+        }
     });
 }
 
 //Equal
 equalButton.addEventListener('click', function (firstNum, secondNum, op) {
-
-    firstNum = parseInt(prompt('first num'));
-    if (firstNum != secondNum) {
-        secondNum = parseInt(prompt('second num'));
-        op = prompt('operator?');
-        console.log(`${firstNum} ${op} ${secondNum}`);
-
         //Operators
         if (op === '+') {
             mainDisplay.textContent = firstNum + secondNum;
@@ -42,9 +39,7 @@ equalButton.addEventListener('click', function (firstNum, secondNum, op) {
             mainDisplay.textContent = firstNum / secondNum;
             subDisplay.textContent = `${firstNum} / ${secondNum}`;
         }
-    }
-
-});
+    });
 
 //Clear
 clearButton.addEventListener('click', () => {
