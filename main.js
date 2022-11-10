@@ -21,11 +21,11 @@ for (const button of allBtn) {
     button.addEventListener('click', () => {
         if (button.className === 'btn number') {
             inputNum = inputNum + button.textContent;
-            console.log(inputNum);
+            mainDisplay.textContent = button.textContent;
         } else if (button.className === 'btn operator') {
             calculator.operator = button.textContent;
             inputNum = inputNum + calculator.operator;
-            console.log(inputNum);
+            subDisplay.textContent = inputNum;
         }
     });
 }
@@ -37,14 +37,15 @@ equalBtn.addEventListener('click', () => {
     calculator.firstNumber = parseInt(result[0]);
     calculator.secondNumber = parseInt(result[1]);
     op(calculator.firstNumber, calculator.secondNumber);
-    console.log(calculator);
+    // console.log(calculator);
 });
 
 //------------- op Function -------------//
 function op(x, y) {
     if (calculator.operator === '+') {
-        console.log(x + y);
+        mainDisplay.textContent = x + y;
+        subDisplay.textContent = `${inputNum} =`;
     } else {
-        console.log(x - y);
+        return x - y;
     }
 }
