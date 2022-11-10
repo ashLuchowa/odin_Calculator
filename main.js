@@ -21,7 +21,7 @@ for (const button of allBtn) {
     button.addEventListener('click', () => {
         if (button.className === 'btn number') {
             inputNum = inputNum + button.textContent;
-            mainDisplay.textContent = button.textContent;
+            mainDisplay.textContent = inputNum;
         } else if (button.className === 'btn operator') {
             calculator.operator = button.textContent;
             inputNum = inputNum + calculator.operator;
@@ -37,15 +37,15 @@ equalBtn.addEventListener('click', () => {
     calculator.firstNumber = parseInt(result[0]);
     calculator.secondNumber = parseInt(result[1]);
     op(calculator.firstNumber, calculator.secondNumber);
-    // console.log(calculator);
+    console.log(calculator);
 });
 
 //------------- op Function -------------//
 function op(x, y) {
     if (calculator.operator === '+') {
         mainDisplay.textContent = x + y;
-        subDisplay.textContent = `${inputNum} =`;
     } else {
-        return x - y;
+        mainDisplay.textContent = x - y;
     }
+    subDisplay.textContent = `${inputNum} =`;
 }
