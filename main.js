@@ -8,41 +8,48 @@ const equalBtn = document.querySelector('.equal');
 const calculator = {
     firstNumber: '',
     secondNumber: '',
-    finalNumber: '',
-    inputNum: '',
+    operator: '',
+    checkSecondNumber: false,
 }
+
 
 //------------- Displays -------------//
 subDisplay.textContent = '';
 mainDisplay.textContent = '0';
 
+
 //------------- Press buttons Numbers -------------//
 for (const button of allBtn) {
     button.addEventListener('click', () => {
-        calculator.inputNum = calculator.inputNum + button.textContent;
-        console.log(button.textContent);
+        let result;
+        if (button.className === 'btn number' && calculator.checkSecondNumber === false) {
+            result = calculator.firstNumber + button.textContent;
+            calculator.firstNumber = parseInt(result);
+        } else if (button.className === 'btn operator') {
+            calculator.operator = button.textContent;
+            calculator.checkSecondNumber = true;
+        } else if (calculator.checkSecondNumber === true && button.className !== 'btn equal') {
+            result = calculator.secondNumber + button.textContent;
+            calculator.secondNumber = parseInt(result);
+        }
+        console.log(calculator);
     });
 }
 
+
 //------------- Press Equal -------------//
 equalBtn.addEventListener('click', () => {
-    // Saving the input
-    const result = calculator.inputNum.split(/[,+-./*=]/);
-    calculator.firstNumber = parseInt(result[0]);
-    calculator.secondNumber = parseInt(result[1]);
-    calculator.finalNumber = result[2];
-    op(calculator.firstNumber, calculator.secondNumber);
+    op(calculator.firstNumber, calculator.secondNumber, calculator.operator);
     // mainDisplay.textContent = calculator.finalNumber;
     // subDisplay.textContent = `${calculator.inputNum} =`;
-    console.log(calculator);
-    calculator.inputNum = calculator.finalNumber;
 });
 
+
 //------------- op Function -------------//
-function op(x, y) {
-    if (calculator.inputNum.includes('+')) {
-        return calculator.finalNumber = x + y;
+function op(x, y, op) {
+    if (op === '+') {
+        console.log(x + y);
     } else {
-        return calculator.finalNumber = x - y;
+        console.log(x - y);
     }
 }
