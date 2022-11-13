@@ -6,10 +6,11 @@ const equalBtn = document.querySelector('.equal');
 
 //------------- Calculator structure -------------//
 const calculator = {
-    firstNumber: '',
+    firstNumber: '0',
     secondNumber: '',
     operator: '',
     checkSecondNumber: false,
+    finalNumber: '',
 }
 
 
@@ -40,16 +41,20 @@ for (const button of allBtn) {
 //------------- Press Equal -------------//
 equalBtn.addEventListener('click', () => {
     op(calculator.firstNumber, calculator.secondNumber, calculator.operator);
+    calculator.firstNumber = calculator.finalNumber;
+    calculator.secondNumber = 0;
     // mainDisplay.textContent = calculator.finalNumber;
     // subDisplay.textContent = `${calculator.inputNum} =`;
+    console.log(calculator);
 });
 
 
 //------------- op Function -------------//
 function op(x, y, op) {
     if (op === '+') {
-        console.log(x + y);
+        calculator.finalNumber = x + y;
     } else {
-        console.log(x - y);
+        calculator.finalNumber = x - y;
     }
+    
 }
