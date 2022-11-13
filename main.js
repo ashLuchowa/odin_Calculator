@@ -51,10 +51,9 @@ equalBtn.addEventListener('click', () => {
 
 //------------- op Function -------------//
 function op(x, y, op) {
-    if (op === '+') {
-        calculator.finalNumber = x + y;
-    } else {
-        calculator.finalNumber = x - y;
-    }
-    
+    op === '+' ? calculator.finalNumber = x + y
+    : op === '-' ? calculator.finalNumber = x - y
+    : op === '&times' ? calculator.finalNumber = x * y
+    : op === '&divide' ? calculator.finalNumber = x / y
+    : calculator.finalNumber;
 }
