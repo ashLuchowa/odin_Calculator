@@ -33,8 +33,17 @@ for (const button of allBtn) {
             result = calculator.secondNumber + button.textContent;
             calculator.secondNumber = parseInt(result);
         }
+
+        //------------- op converter -------------//
+        button.textContent === '&divide' ? '/' 
+        : button.textContent === '&times' ? '*' 
+        : button.textContent === '&minus;' ? '-'
+        : button.textContent === '&plus;' ? '+'
+        : '';
+            
         console.log(calculator);
     });
+
 }
 
 
@@ -51,9 +60,9 @@ equalBtn.addEventListener('click', () => {
 
 //------------- op Function -------------//
 function op(x, y, op) {
-    op === '+' ? calculator.finalNumber = x + y
-    : op === '-' ? calculator.finalNumber = x - y
-    : op === '&times' ? calculator.finalNumber = x * y
-    : op === '&divide' ? calculator.finalNumber = x / y
+    op === '+' ? calculator.finalNumber = x + y 
+    : op === '−' ? calculator.finalNumber = x - y
+    : op === '×' ? calculator.finalNumber = x * y
+    : op === '÷' ? calculator.finalNumber = x / y
     : calculator.finalNumber;
 }
