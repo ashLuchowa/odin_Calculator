@@ -4,9 +4,10 @@ const subDisplay = document.getElementById('display-sub');
 const allBtn = document.querySelectorAll('.btn');
 const equalBtn = document.querySelector('.equal');
 
+
 //------------- Calculator structure -------------//
 const calculator = {
-    firstNumber: '0',
+    firstNumber: '',
     secondNumber: '',
     operator: '',
     checkSecondNumber: false,
@@ -32,6 +33,8 @@ for (const button of allBtn) {
         } else if (calculator.checkSecondNumber === true && button.className !== 'btn equal') {
             result = calculator.secondNumber + button.textContent;
             calculator.secondNumber = parseInt(result);
+        } else if(button.className === 'btn equal') {
+            // subDisplay.textContent += null;
         }
 
         //------------- op converter -------------//
@@ -40,10 +43,12 @@ for (const button of allBtn) {
         : button.textContent === '&minus;' ? '-'
         : button.textContent === '&plus;' ? '+'
         : '';
+
+        //------------- Sub Display -------------//
+        subDisplay.textContent += `${button.textContent}`;
             
         console.log(calculator);
     });
-
 }
 
 
@@ -52,8 +57,7 @@ equalBtn.addEventListener('click', () => {
     op(calculator.firstNumber, calculator.secondNumber, calculator.operator);
     calculator.firstNumber = calculator.finalNumber;
     calculator.secondNumber = 0;
-    // mainDisplay.textContent = calculator.finalNumber;
-    // subDisplay.textContent = `${calculator.inputNum} =`;
+    mainDisplay.textContent = calculator.finalNumber;
     console.log(calculator);
 });
 
