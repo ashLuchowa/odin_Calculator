@@ -41,6 +41,11 @@ for (const button of allBtn) {
         } else if (calculator.checkForSecondOp === true && button.className !== 'btn equal') {
             result = calculator.secondNumber + button.textContent;
             calculator.secondNumber = parseInt(result);
+
+            if (calculator.secondNumber === 0 && calculator.operator === '÷') {
+                mainDisplay.textContent = 'error';
+                calculator.firstNumber = 0;
+            }
         }
 
         //------------- Sub Display -------------//    
