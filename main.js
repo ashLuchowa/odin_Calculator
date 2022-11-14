@@ -3,7 +3,7 @@ const mainDisplay = document.getElementById('display-main');
 const subDisplay = document.getElementById('display-sub');
 const allBtn = document.querySelectorAll('.btn');
 const equalBtn = document.querySelector('.equal');
-const sumBtn = document.querySelector('.plus');
+const clearBtn = document.getElementById('clr-btn');
 
 
 //------------- Calculator structure -------------//
@@ -54,7 +54,6 @@ for (const button of allBtn) {
         }
 
         console.log(calculator);
-
     });
 
 
@@ -86,3 +85,14 @@ function op(x, y, op) {
         op === '÷' ? calculator.finalNumber = x / y :
         calculator.finalNumber;
 }
+
+//------------- Clear -------------//
+clearBtn.addEventListener('click', () => {
+    calculator.firstNumber = '';
+    calculator.secondNumber = '';
+    calculator.operator = '';
+    calculator.checkForOp = false;
+    calculator.finalNumber = '';
+    subDisplay.textContent = '';
+    mainDisplay.textContent = '0';
+})
