@@ -4,6 +4,8 @@ const subDisplay = document.getElementById('display-sub');
 const allBtn = document.querySelectorAll('.btn');
 const equalBtn = document.querySelector('.equal');
 const clearBtn = document.getElementById('clr-btn');
+const delBtn = document.getElementById('del-btn');
+let result = '0';
 
 
 //------------- Calculator structure -------------//
@@ -24,10 +26,11 @@ mainDisplay.textContent = '0';
 //------------- Press buttons Numbers -------------//
 for (const button of allBtn) {
     button.addEventListener('click', () => {
-        let result = '0';
         if (button.className === 'btn number' && calculator.checkForSecondOp === false) {
             result = calculator.firstNumber + button.textContent;
             calculator.firstNumber = parseInt(result);
+
+
         } else if (button.className === 'btn operator') {
             calculator.operator = button.textContent;
             calculator.checkForSecondOp = true;
@@ -42,20 +45,19 @@ for (const button of allBtn) {
 
         //------------- Sub Display -------------//    
         if (button.className !== 'btn equal') {
-            subDisplay.textContent += `${button.textContent}`;
+            subDisplay.textContent += button.textContent;
         }
-
         console.log(calculator);
     });
 };
 
+
 // ------------- Pressing general operators -------------//
 function generalOp() {
     op(calculator.firstNumber, calculator.secondNumber, calculator.operator);
-    calculator.firstNumber = calculator.finalNumber;
+    calculator.firstNumber = Math.floor(calculator.finalNumber * 1000) / 1000;
     calculator.secondNumber = '';
-    mainDisplay.textContent = calculator.finalNumber;
-    console.log(calculator);
+    mainDisplay.textContent = Math.floor(calculator.finalNumber * 1000) / 1000;
 };
 
 
@@ -63,7 +65,8 @@ function generalOp() {
 equalBtn.addEventListener('click', () => {
     generalOp();
     calculator.checkForSecondOp = false;
-    // subDisplay.textContent += '=';
+    subDisplay.textContent = calculator.firstNumber;
+    console.log(calculator);
 });
 
 
@@ -77,7 +80,7 @@ function op(x, y, op) {
         calculator.finalNumber = x / y;
     } else if (op === '×') {
         if (calculator.firstNumber === 0) {
-            x = -1;
+            let x = -1;
             calculator.finalNumber = x * y
         } else {
             calculator.finalNumber = x * y
