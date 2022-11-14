@@ -8,12 +8,12 @@ const clearBtn = document.getElementById('clr-btn');
 
 //------------- Calculator structure -------------//
 const calculator = {
-    firstNumber: '',
+    firstNumber: 0,
     secondNumber: '',
     operator: '',
-    checkForOp: false,
+    checkForSecondOp: false,
     finalNumber: '',
-}
+};
 
 
 //------------- Displays -------------//
@@ -24,29 +24,21 @@ mainDisplay.textContent = '0';
 //------------- Press buttons Numbers -------------//
 for (const button of allBtn) {
     button.addEventListener('click', () => {
-        let result = 0;
-        if (button.className === 'btn number' && calculator.checkForOp === false) {
+        let result = '0';
+        if (button.className === 'btn number' && calculator.checkForSecondOp === false) {
             result = calculator.firstNumber + button.textContent;
             calculator.firstNumber = parseInt(result);
         } else if (button.className === 'btn operator') {
             calculator.operator = button.textContent;
-            calculator.checkForOp = true;
-
-            if (calculator.firstNumber !== '' && calculator.secondNumber !== '' && calculator.operator !== '' && calculator.checkForOp === true) {
+            calculator.checkForSecondOp = true;
+            if (calculator.firstNumber !== '' && calculator.secondNumber !== '' && calculator.operator !== '' && calculator.checkForSecondOp === true) {
                 generalOp();
                 subDisplay.textContent = calculator.firstNumber;
             }
-        } else if (calculator.checkForOp === true && button.className !== 'btn equal') {
+        } else if (calculator.checkForSecondOp === true && button.className !== 'btn equal') {
             result = calculator.secondNumber + button.textContent;
             calculator.secondNumber = parseInt(result);
         }
-
-        //------------- op converter -------------//
-        button.textContent === '&divide' ? '/' :
-            button.textContent === '&times' ? '*' :
-            button.textContent === '&minus;' ? '-' :
-            button.textContent === '&plus;' ? '+' :
-            '';
 
         //------------- Sub Display -------------//    
         if (button.className !== 'btn equal') {
@@ -55,9 +47,7 @@ for (const button of allBtn) {
 
         console.log(calculator);
     });
-
-
-}
+};
 
 // ------------- Pressing general operators -------------//
 function generalOp() {
@@ -66,33 +56,43 @@ function generalOp() {
     calculator.secondNumber = '';
     mainDisplay.textContent = calculator.finalNumber;
     console.log(calculator);
-}
+};
 
 
 // ------------- Press Equal -------------//
 equalBtn.addEventListener('click', () => {
     generalOp();
-    calculator.checkForOp = false;
-    subDisplay.textContent += '=';
+    calculator.checkForSecondOp = false;
+    // subDisplay.textContent += '=';
 });
 
 
 //------------- op Function -------------//
 function op(x, y, op) {
-    op === '+' ? calculator.finalNumber = x + y :
-        op === '−' ? calculator.finalNumber = x - y :
-        op === '×' ? calculator.finalNumber = x * y :
-        op === '÷' ? calculator.finalNumber = x / y :
-        calculator.finalNumber;
-}
+    if (op === '+') {
+        calculator.finalNumber = x + y;
+    } else if (op === '−') {
+        calculator.finalNumber = x - y;
+    } else if (op === '÷') {
+        calculator.finalNumber = x / y;
+    } else if (op === '×') {
+        if (calculator.firstNumber === 0) {
+            x = -1;
+            calculator.finalNumber = x * y
+        } else {
+            calculator.finalNumber = x * y
+        }
+    }
+};
 
 //------------- Clear -------------//
 clearBtn.addEventListener('click', () => {
-    calculator.firstNumber = '';
+    calculator.firstNumber = 0;
     calculator.secondNumber = '';
     calculator.operator = '';
-    calculator.checkForOp = false;
+    calculator.checkForSecondOp = false;
     calculator.finalNumber = '';
     subDisplay.textContent = '';
     mainDisplay.textContent = '0';
-})
+    console.log(calculator);
+});
