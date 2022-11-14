@@ -30,7 +30,6 @@ for (const button of allBtn) {
             result = calculator.firstNumber + button.textContent;
             calculator.firstNumber = parseInt(result);
 
-
         } else if (button.className === 'btn operator') {
             calculator.operator = button.textContent;
             calculator.checkForSecondOp = true;
@@ -38,15 +37,22 @@ for (const button of allBtn) {
                 generalOp();
                 subDisplay.textContent = calculator.firstNumber;
             }
+
         } else if (calculator.checkForSecondOp === true && button.className !== 'btn equal') {
             result = calculator.secondNumber + button.textContent;
             calculator.secondNumber = parseInt(result);
         }
 
         //------------- Sub Display -------------//    
-        if (button.className !== 'btn equal') {
+        if (button.className !== 'btn equal' && button.id !== 'del-btn' && button.className !== 'btn decimal') {
             subDisplay.textContent += button.textContent;
         }
+
+        //------------- Decimal -------------//    
+        if (button.className === 'btn decimal') {
+            //find a way to add decimals
+        }
+
         console.log(calculator);
     });
 };
