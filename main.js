@@ -63,7 +63,7 @@ for (const button of allBtn) {
 function generalOp() {
     op(calculator.firstNumber, calculator.secondNumber, calculator.operator);
     calculator.firstNumber = calculator.finalNumber;
-    calculator.secondNumber = 0;
+    calculator.secondNumber = '';
     mainDisplay.textContent = calculator.finalNumber;
     console.log(calculator);
 }
