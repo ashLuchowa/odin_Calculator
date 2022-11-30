@@ -21,10 +21,16 @@ mainDisplay.textContent = '0';
 for (const button of allBtn) {
     button.addEventListener('click', () => {
         if (button.className === 'btn number') {
-            calculator.currentNum = parseInt(calculator.currentNum + button.textContent);
+            if (calculator.currentNum.length > 13) {
+                return calculator.currentNum;
+            } else {
+                calculator.currentNum = (calculator.currentNum + button.textContent);
+            }
+
             mainDisplay.textContent = calculator.currentNum;
+
         } else if (button.className === 'btn operator') {
-            op(calculator.previousNum, calculator.currentNum, calculator.operator);
+            op(parseInt(calculator.previousNum), parseInt(calculator.currentNum), calculator.operator);
             calculator.previousNum = calculator.currentNum;
             calculator.operator = button.textContent;
             calculator.currentNum = '';
@@ -37,7 +43,7 @@ for (const button of allBtn) {
         }
 
         //Error when dividing by 0
-        if (calculator.currentNum === 0 && calculator.operator === '÷') {
+        if (calculator.currentNum === '0' && calculator.operator === '÷') {
             mainDisplay.textContent = 'error';
         }
 
@@ -49,7 +55,7 @@ for (const button of allBtn) {
 
         subDisplay.textContent = calculator.previousNum + calculator.operator;
 
-        if(button.id === 'equal') {
+        if (button.id === 'equal') {
             subDisplay.textContent = calculator.finalNumber;
         }
         console.log(calculator);
