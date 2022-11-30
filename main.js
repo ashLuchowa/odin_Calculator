@@ -27,6 +27,7 @@ for (const button of allBtn) {
     button.addEventListener('click', () => {
         if (button.className === 'btn number') {
             calculator.currentNum = parseInt(calculator.currentNum + button.textContent);
+            mainDisplay.textContent = calculator.currentNum;
 
         } else if (button.className === 'btn operator') {
             op(calculator.previousNum, calculator.currentNum, calculator.operator);
@@ -35,10 +36,13 @@ for (const button of allBtn) {
             calculator.currentNum = '';
 
             //Press operator button again without equal
-            if(calculator.finalNumber !== '') {
+            if (calculator.finalNumber !== '') {
                 calculator.previousNum = calculator.finalNumber;
+                mainDisplay.textContent = '0';
             }
-            
+
+            subDisplay.textContent = calculator.previousNum + calculator.operator;
+
 
 
         } else if (calculator.checkForSecondOp === true && button.className !== 'btn equal') {
