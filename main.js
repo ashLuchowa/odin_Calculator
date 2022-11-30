@@ -10,10 +10,9 @@ let result = '0';
 
 //------------- Calculator structure -------------//
 const calculator = {
-    firstNumber: 0,
-    secondNumber: '',
+    previousNum: 0,
+    currentNum: '',
     operator: '',
-    checkForSecondOp: false,
     finalNumber: '',
 };
 
@@ -26,59 +25,27 @@ mainDisplay.textContent = '0';
 //------------- Press buttons Numbers -------------//
 for (const button of allBtn) {
     button.addEventListener('click', () => {
-        if (button.className === 'btn number' && calculator.checkForSecondOp === false) {
-            result = calculator.firstNumber + button.textContent;
-            calculator.firstNumber = parseInt(result);
+        if (button.className === 'btn number') {
+
 
         } else if (button.className === 'btn operator') {
-            calculator.operator = button.textContent;
-            calculator.checkForSecondOp = true;
-            if (calculator.firstNumber !== '' && calculator.secondNumber !== '' && calculator.operator !== '' && calculator.checkForSecondOp === true) {
-                generalOp();
-                subDisplay.textContent = calculator.firstNumber;
-            }
+
 
         } else if (calculator.checkForSecondOp === true && button.className !== 'btn equal') {
-            result = calculator.secondNumber + button.textContent;
-            calculator.secondNumber = parseInt(result);
 
-            if (calculator.secondNumber === 0 && calculator.operator === '÷') {
-                mainDisplay.textContent = 'error';
-                calculator.firstNumber = 0;
-            }
-        }
 
-        //------------- Sub Display -------------//    
-        if (button.className !== 'btn equal' && button.id !== 'del-btn' && button.className !== 'btn decimal') {
-            subDisplay.textContent += button.textContent;
-        }
-
-        //------------- Decimal -------------//    
-        if (button.className === 'btn decimal') {
-            //find a way to add decimals
+            // if (calculator.currentNum === 0 && calculator.operator === '÷') {
+            //     mainDisplay.textContent = 'error';
+            //     calculator.previousNum = 0;
+            // }
         }
 
         console.log(calculator);
     });
 };
 
-
-// ------------- Pressing general operators -------------//
-function generalOp() {
-    op(calculator.firstNumber, calculator.secondNumber, calculator.operator);
-    calculator.firstNumber = Math.floor(calculator.finalNumber * 1000) / 1000;
-    calculator.secondNumber = '';
-    mainDisplay.textContent = Math.floor(calculator.finalNumber * 1000) / 1000;
-};
-
-
 // ------------- Press Equal -------------//
-equalBtn.addEventListener('click', () => {
-    generalOp();
-    calculator.checkForSecondOp = false;
-    subDisplay.textContent = calculator.firstNumber;
-    console.log(calculator);
-});
+equalBtn.addEventListener('click', () => {});
 
 
 //------------- op Function -------------//
@@ -90,7 +57,7 @@ function op(x, y, op) {
     } else if (op === '÷') {
         calculator.finalNumber = x / y;
     } else if (op === '×') {
-        if (calculator.firstNumber === 0) {
+        if (calculator.previousNum === 0) {
             let x = -1;
             calculator.finalNumber = x * y
         } else {
@@ -101,8 +68,8 @@ function op(x, y, op) {
 
 //------------- Clear -------------//
 clearBtn.addEventListener('click', () => {
-    calculator.firstNumber = 0;
-    calculator.secondNumber = '';
+    calculator.previousNum = 0;
+    calculator.currentNum = '';
     calculator.operator = '';
     calculator.checkForSecondOp = false;
     calculator.finalNumber = '';
