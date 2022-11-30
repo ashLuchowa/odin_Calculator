@@ -38,6 +38,11 @@ for (const button of allBtn) {
                 calculator.previousNum = calculator.finalNumber;
                 mainDisplay.textContent = '0';
             }
+        } else if (button.className === 'btn equal') {
+            op(calculator.previousNum, calculator.currentNum, calculator.operator);
+            calculator.previousNum = calculator.finalNumber;
+            calculator.currentNum = '';
+            mainDisplay.textContent = '0';
         }
 
         //Error when dividing by 0
@@ -55,7 +60,9 @@ for (const button of allBtn) {
 };
 
 // ------------- Press Equal -------------//
-equalBtn.addEventListener('click', () => {});
+equalBtn.addEventListener('click', () => {
+
+});
 
 
 //------------- op Function -------------//
