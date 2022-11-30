@@ -5,7 +5,6 @@ const allBtn = document.querySelectorAll('.btn');
 const equalBtn = document.querySelector('.equal');
 const clearBtn = document.getElementById('clr-btn');
 const delBtn = document.getElementById('del-btn');
-let result = '';
 
 
 //------------- Calculator structure -------------//
@@ -41,19 +40,12 @@ for (const button of allBtn) {
                 mainDisplay.textContent = '0';
             }
 
-            subDisplay.textContent = calculator.previousNum + calculator.operator;
-
-
-
-        } else if (calculator.checkForSecondOp === true && button.className !== 'btn equal') {
-
-
-            // if (calculator.currentNum === 0 && calculator.operator === '÷') {
-            //     mainDisplay.textContent = 'error';
-            //     calculator.previousNum = 0;
-            // }
+        }
+        if (calculator.currentNum === 0 && calculator.operator === '÷') {
+            mainDisplay.textContent = 'error';
         }
 
+        subDisplay.textContent = calculator.previousNum + calculator.operator;
         console.log(calculator);
     });
 };
@@ -82,12 +74,17 @@ function op(x, y, op) {
 
 //------------- Clear -------------//
 clearBtn.addEventListener('click', () => {
-    calculator.previousNum = 0;
-    calculator.currentNum = '';
-    calculator.operator = '';
-    calculator.checkForSecondOp = false;
-    calculator.finalNumber = '';
-    subDisplay.textContent = '';
+    reset();
+});
+
+
+//------------- Reset -------------//
+function reset() {
+    calculator.previousNum = '',
+        calculator.currentNum = '',
+        calculator.operator = '',
+        calculator.finalNumber = '',
+        subDisplay.textContent = '';
     mainDisplay.textContent = '0';
     console.log(calculator);
-});
+}
