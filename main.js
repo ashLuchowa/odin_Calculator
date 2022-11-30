@@ -2,10 +2,8 @@
 const mainDisplay = document.getElementById('display-main');
 const subDisplay = document.getElementById('display-sub');
 const allBtn = document.querySelectorAll('.btn');
-const equalBtn = document.querySelector('.equal');
 const clearBtn = document.getElementById('clr-btn');
 const delBtn = document.getElementById('del-btn');
-
 
 //------------- Calculator structure -------------//
 const calculator = {
@@ -15,13 +13,11 @@ const calculator = {
     finalNumber: '',
 };
 
-
 //------------- Displays -------------//
 subDisplay.textContent = '';
 mainDisplay.textContent = '0';
 
-
-//------------- Press buttons Numbers -------------//
+//------------- Press button Numbers -------------//
 for (const button of allBtn) {
     button.addEventListener('click', () => {
         if (button.className === 'btn number') {
@@ -38,11 +34,6 @@ for (const button of allBtn) {
                 calculator.previousNum = calculator.finalNumber;
                 mainDisplay.textContent = '0';
             }
-        } else if (button.className === 'btn equal') {
-            op(calculator.previousNum, calculator.currentNum, calculator.operator);
-            calculator.previousNum = calculator.finalNumber;
-            calculator.currentNum = '';
-            mainDisplay.textContent = '0';
         }
 
         //Error when dividing by 0
@@ -50,20 +41,20 @@ for (const button of allBtn) {
             mainDisplay.textContent = 'error';
         }
 
-        if(calculator.previousNum === Infinity && button.className === 'btn operator') {
+        if (calculator.previousNum === Infinity && button.className === 'btn operator') {
+            reset();
+        } else if (calculator.previousNum === Infinity && button.className === 'btn equal') {
             reset();
         }
 
         subDisplay.textContent = calculator.previousNum + calculator.operator;
+
+        if(button.id === 'equal') {
+            subDisplay.textContent = calculator.finalNumber;
+        }
         console.log(calculator);
     });
 };
-
-// ------------- Press Equal -------------//
-equalBtn.addEventListener('click', () => {
-
-});
-
 
 //------------- op Function -------------//
 function op(x, y, op) {
@@ -74,20 +65,14 @@ function op(x, y, op) {
     } else if (op === '÷') {
         calculator.finalNumber = x / y;
     } else if (op === '×') {
-        if (calculator.previousNum === 0) {
-            let x = -1;
-            calculator.finalNumber = x * y
-        } else {
-            calculator.finalNumber = x * y
-        }
+        calculator.finalNumber = x * y;
     }
 };
 
-//------------- Clear -------------//
+//------------- Clear Button -------------//
 clearBtn.addEventListener('click', () => {
     reset();
 });
-
 
 //------------- Reset -------------//
 function reset() {
