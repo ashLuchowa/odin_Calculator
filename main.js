@@ -5,12 +5,12 @@ const allBtn = document.querySelectorAll('.btn');
 const equalBtn = document.querySelector('.equal');
 const clearBtn = document.getElementById('clr-btn');
 const delBtn = document.getElementById('del-btn');
-let result = '0';
+let result = '';
 
 
 //------------- Calculator structure -------------//
 const calculator = {
-    previousNum: 0,
+    previousNum: '',
     currentNum: '',
     operator: '',
     finalNumber: '',
@@ -26,9 +26,19 @@ mainDisplay.textContent = '0';
 for (const button of allBtn) {
     button.addEventListener('click', () => {
         if (button.className === 'btn number') {
-
+            calculator.currentNum = parseInt(calculator.currentNum + button.textContent);
 
         } else if (button.className === 'btn operator') {
+            op(calculator.previousNum, calculator.currentNum, calculator.operator);
+            calculator.previousNum = calculator.currentNum;
+            calculator.operator = button.textContent;
+            calculator.currentNum = '';
+
+            //Press operator button again without equal
+            if(calculator.finalNumber !== '') {
+                calculator.previousNum = calculator.finalNumber;
+            }
+            
 
 
         } else if (calculator.checkForSecondOp === true && button.className !== 'btn equal') {
