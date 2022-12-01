@@ -37,7 +37,7 @@ for (const button of allBtn) {
 
             //Press operator button again without equal
             if (calculator.finalNumber !== '') {
-                calculator.previousNum = calculator.finalNumber;
+                calculator.previousNum = Math.round(calculator.finalNumber*10000)/10000;
                 mainDisplay.textContent = '0';
             }
         } else if (button.className === 'btn decimal') {
@@ -59,7 +59,7 @@ for (const button of allBtn) {
         subDisplay.textContent = calculator.previousNum + calculator.operator;
 
         if (button.id === 'equal') {
-            subDisplay.textContent = calculator.finalNumber;
+            subDisplay.textContent = Math.round(calculator.finalNumber*10000)/10000;
         }
         console.log(calculator);
     });
