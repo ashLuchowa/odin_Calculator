@@ -42,6 +42,7 @@ for (const button of allBtn) {
             }
         } else if (button.className === 'btn decimal') {
             calculator.currentNum = calculator.currentNum + button.textContent;
+            mainDisplay.textContent = mainDisplay.textContent + '.';
         }
 
         //Error when dividing by 0
