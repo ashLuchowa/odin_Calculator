@@ -20,7 +20,7 @@ mainDisplay.textContent = '0';
 for (const button of allBtn) {
     button.addEventListener('click', () => {
 
-        //------------- Press Numbers -------------//
+        //------------- Input Numbers -------------//
         if (button.className === 'btn number') {
             if (calculator.currentNum.length > 13) {
                 return calculator.currentNum;
@@ -29,7 +29,7 @@ for (const button of allBtn) {
             }
             mainDisplay.textContent = calculator.currentNum;
 
-        //------------- Press Operators -------------//
+        //------------- Input Operators -------------//
         } else if (button.className === 'btn operator') {
             if (calculator.previousNum !== '' && calculator.currentNum === '' && calculator.operator !== '') {
                 calculator.previousNum != calculator.currentNum;
@@ -40,13 +40,13 @@ for (const button of allBtn) {
                 calculator.operator = button.textContent;
                 calculator.currentNum = '';
             }
-            //Get finalNumber without using equal operator
+            //Execute finalNumber without using equal operator
             if (calculator.finalNumber !== '') {
                 calculator.previousNum = Math.round(calculator.finalNumber * 10000) / 10000;
                 mainDisplay.textContent = '0';
             }
 
-        //------------- Press Decimal -------------//  
+        //------------- Input Decimal -------------//  
         } else if (button.className === 'btn decimal') { //Decimal
             if (!calculator.currentNum.includes('.')) {
                 calculator.currentNum = calculator.currentNum + button.textContent;
@@ -109,10 +109,10 @@ clearBtn.addEventListener('click', () => {
 //------------- Reset -------------//
 function reset() {
     calculator.previousNum = '',
-        calculator.currentNum = '',
-        calculator.operator = '',
-        calculator.finalNumber = '',
-        subDisplay.textContent = '';
+    calculator.currentNum = '',
+    calculator.operator = '',
+    calculator.finalNumber = '',
+    subDisplay.textContent = '';
     mainDisplay.textContent = '0';
     console.log(calculator);
 }
