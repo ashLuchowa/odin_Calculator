@@ -16,9 +16,11 @@ const calculator = {
 subDisplay.textContent = '';
 mainDisplay.textContent = '0';
 
-//------------- Press button Numbers -------------//
+//------------- Press button -------------//
 for (const button of allBtn) {
     button.addEventListener('click', () => {
+
+        //------------- Press Numbers -------------//
         if (button.className === 'btn number') {
             if (calculator.currentNum.length > 13) {
                 return calculator.currentNum;
@@ -27,18 +29,24 @@ for (const button of allBtn) {
             }
             mainDisplay.textContent = calculator.currentNum;
 
+        //------------- Press Operators -------------//
         } else if (button.className === 'btn operator') {
-            op(parseFloat(calculator.previousNum), parseFloat(calculator.currentNum), calculator.operator);
-            calculator.previousNum = calculator.currentNum;
-            calculator.operator = button.textContent;
-            calculator.currentNum = '';
-
+            if (calculator.previousNum !== '' && calculator.currentNum === '' && calculator.operator !== '') {
+                calculator.previousNum != calculator.currentNum;
+                calculator.operator = button.textContent
+            } else {
+                op(parseFloat(calculator.previousNum), parseFloat(calculator.currentNum), calculator.operator);
+                calculator.previousNum = calculator.currentNum;
+                calculator.operator = button.textContent;
+                calculator.currentNum = '';
+            }
             //Get finalNumber without using equal operator
             if (calculator.finalNumber !== '') {
                 calculator.previousNum = Math.round(calculator.finalNumber * 10000) / 10000;
                 mainDisplay.textContent = '0';
             }
 
+        //------------- Press Decimal -------------//  
         } else if (button.className === 'btn decimal') { //Decimal
             if (!calculator.currentNum.includes('.')) {
                 calculator.currentNum = calculator.currentNum + button.textContent;
@@ -48,7 +56,7 @@ for (const button of allBtn) {
             }
         }
 
-        //Error when dividing by 0
+        //------------- Error when divide by 0 -------------//
         if (calculator.currentNum === '0' && calculator.operator === '÷') {
             mainDisplay.textContent = 'error';
         }
@@ -65,14 +73,14 @@ for (const button of allBtn) {
             subDisplay.textContent = Math.round(calculator.finalNumber * 10000) / 10000;
         }
 
-        //Backspace
+        //------------- Press backspace -------------//
         if (button.id === 'del-btn') {
             calculator.currentNum = calculator.currentNum.slice(0, -1);
             mainDisplay.textContent = calculator.currentNum;
         }
 
-        //Operator First
-        if(calculator.currentNum === '' && button.className === 'btn operator' && calculator.previousNum === '') {
+        //------------- Cannot input operator first -------------//
+        if (calculator.currentNum === '' && button.className === 'btn operator' && calculator.previousNum === '') {
             reset();
         }
 
@@ -101,10 +109,10 @@ clearBtn.addEventListener('click', () => {
 //------------- Reset -------------//
 function reset() {
     calculator.previousNum = '',
-    calculator.currentNum = '',
-    calculator.operator = '',
-    calculator.finalNumber = '',
-    subDisplay.textContent = '';
+        calculator.currentNum = '',
+        calculator.operator = '',
+        calculator.finalNumber = '',
+        subDisplay.textContent = '';
     mainDisplay.textContent = '0';
     console.log(calculator);
 }
