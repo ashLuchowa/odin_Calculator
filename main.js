@@ -3,8 +3,6 @@ const mainDisplay = document.getElementById('display-main');
 const subDisplay = document.getElementById('display-sub');
 const allBtn = document.querySelectorAll('.btn');
 const clearBtn = document.getElementById('clr-btn');
-const delBtn = document.getElementById('del-btn');
-const decimalBtn = document.getElementsByClassName('btn decimal');
 
 //------------- Calculator structure -------------//
 const calculator = {
@@ -66,6 +64,13 @@ for (const button of allBtn) {
         if (button.id === 'equal') {
             subDisplay.textContent = Math.round(calculator.finalNumber * 10000) / 10000;
         }
+
+        //Backspace
+        if (button.id === 'del-btn') {
+            calculator.currentNum = calculator.currentNum.slice(0, -1);
+            mainDisplay.textContent = calculator.currentNum;
+        }
+
         console.log(calculator);
     });
 };
