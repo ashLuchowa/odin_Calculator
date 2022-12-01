@@ -4,6 +4,7 @@ const subDisplay = document.getElementById('display-sub');
 const allBtn = document.querySelectorAll('.btn');
 const clearBtn = document.getElementById('clr-btn');
 const delBtn = document.getElementById('del-btn');
+const decimalBtn = document.getElementsByClassName('btn decimal');
 
 //------------- Calculator structure -------------//
 const calculator = {
@@ -26,7 +27,6 @@ for (const button of allBtn) {
             } else {
                 calculator.currentNum = calculator.currentNum + button.textContent;
             }
-
             mainDisplay.textContent = calculator.currentNum;
 
         } else if (button.className === 'btn operator') {
@@ -35,14 +35,19 @@ for (const button of allBtn) {
             calculator.operator = button.textContent;
             calculator.currentNum = '';
 
-            //Press operator button again without equal
+            //Get finalNumber without using equal operator
             if (calculator.finalNumber !== '') {
-                calculator.previousNum = Math.round(calculator.finalNumber*10000)/10000;
+                calculator.previousNum = Math.round(calculator.finalNumber * 10000) / 10000;
                 mainDisplay.textContent = '0';
             }
-        } else if (button.className === 'btn decimal') {
-            calculator.currentNum = calculator.currentNum + button.textContent;
-            mainDisplay.textContent = mainDisplay.textContent + '.';
+
+        } else if (button.className === 'btn decimal') { //Decimal
+            if (!calculator.currentNum.includes('.')) {
+                calculator.currentNum = calculator.currentNum + button.textContent;
+                mainDisplay.textContent = mainDisplay.textContent + '.';
+            } else {
+                return;
+            }
         }
 
         //Error when dividing by 0
@@ -59,7 +64,7 @@ for (const button of allBtn) {
         subDisplay.textContent = calculator.previousNum + calculator.operator;
 
         if (button.id === 'equal') {
-            subDisplay.textContent = Math.round(calculator.finalNumber*10000)/10000;
+            subDisplay.textContent = Math.round(calculator.finalNumber * 10000) / 10000;
         }
         console.log(calculator);
     });
