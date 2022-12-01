@@ -24,13 +24,13 @@ for (const button of allBtn) {
             if (calculator.currentNum.length > 13) {
                 return calculator.currentNum;
             } else {
-                calculator.currentNum = (calculator.currentNum + button.textContent);
+                calculator.currentNum = calculator.currentNum + button.textContent;
             }
 
             mainDisplay.textContent = calculator.currentNum;
 
         } else if (button.className === 'btn operator') {
-            op(parseInt(calculator.previousNum), parseInt(calculator.currentNum), calculator.operator);
+            op(parseFloat(calculator.previousNum), parseFloat(calculator.currentNum), calculator.operator);
             calculator.previousNum = calculator.currentNum;
             calculator.operator = button.textContent;
             calculator.currentNum = '';
@@ -40,6 +40,8 @@ for (const button of allBtn) {
                 calculator.previousNum = calculator.finalNumber;
                 mainDisplay.textContent = '0';
             }
+        } else if (button.className === 'btn decimal') {
+            calculator.currentNum = calculator.currentNum + button.textContent;
         }
 
         //Error when dividing by 0
