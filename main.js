@@ -71,6 +71,11 @@ for (const button of allBtn) {
             mainDisplay.textContent = calculator.currentNum;
         }
 
+        //Operator First
+        if(calculator.currentNum === '' && button.className === 'btn operator' && calculator.previousNum === '') {
+            reset();
+        }
+
         console.log(calculator);
     });
 };
