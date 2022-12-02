@@ -119,11 +119,13 @@ function reset() {
 
 //------------- Keyboard Input -------------//
 addEventListener('keydown', (e) => {
-    if (calculator.currentNum.length > 13) {
-        return calculator.currentNum;
-    } else {
-        calculator.currentNum = calculator.currentNum + e.key;
+    if(e.key >= 0 && e.key <= 9) {
+        if (calculator.currentNum.length > 13) {
+            return calculator.currentNum;
+        } else {
+            calculator.currentNum = calculator.currentNum + e.key;
+        }
+        mainDisplay.textContent = calculator.currentNum;
+        console.log(calculator);
     }
-    mainDisplay.textContent = calculator.currentNum;
-    console.log(calculator);
 });
