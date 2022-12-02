@@ -33,7 +33,7 @@ for (const button of allBtn) {
         } else if (button.className === 'btn operator') {
             if (calculator.previousNum !== '' && calculator.currentNum === '' && calculator.operator !== '') {
                 calculator.previousNum != calculator.currentNum;
-                calculator.operator = button.textContent
+                calculator.operator = button.textContent;
             } else {
                 op(parseFloat(calculator.previousNum), parseFloat(calculator.currentNum), calculator.operator);
                 calculator.previousNum = calculator.currentNum;
@@ -116,3 +116,14 @@ function reset() {
     mainDisplay.textContent = '0';
     console.log(calculator);
 }
+
+//------------- Keyboard Input -------------//
+addEventListener('keydown', (e) => {
+    if (calculator.currentNum.length > 13) {
+        return calculator.currentNum;
+    } else {
+        calculator.currentNum = calculator.currentNum + e.key;
+    }
+    mainDisplay.textContent = calculator.currentNum;
+    console.log(calculator);
+});
