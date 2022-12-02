@@ -117,11 +117,9 @@ function reset() {
     console.log(calculator);
 }
 
-
 //------------- Keyboard Input -------------//
-
-//------------- Keyboard numbers -------------//
 addEventListener('keydown', (e) => {
+
     if((e.key >= 0 && e.key <= 9) || e.key === '.') {
         if (calculator.currentNum.length > 13) {
             return calculator.currentNum;
@@ -129,6 +127,27 @@ addEventListener('keydown', (e) => {
             calculator.currentNum = calculator.currentNum + e.key;
         }
         mainDisplay.textContent = calculator.currentNum;
-        console.log(calculator);
+
+    } else if (e.key === '+') {
+        if (calculator.previousNum !== '' && calculator.currentNum === '' && calculator.operator !== '') {
+            calculator.previousNum != calculator.currentNum;
+            calculator.operator = e.key;
+        } else {
+            op(parseFloat(calculator.previousNum), parseFloat(calculator.currentNum), calculator.operator);
+            calculator.previousNum = calculator.currentNum;
+            calculator.operator = e.key;
+            calculator.currentNum = '';
+        }
+        //Execute finalNumber without using equal operator
+        if (calculator.finalNumber !== '') {
+            calculator.previousNum = Math.round(calculator.finalNumber * 10000) / 10000;
+            mainDisplay.textContent = '0';
+        }
+        subDisplay.textContent = calculator.previousNum + calculator.operator;
+
+    } else if (e.key === 'Enter') {
+        alert('yes');
     }
+
+    console.log(calculator);
 });
