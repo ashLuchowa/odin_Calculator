@@ -29,7 +29,7 @@ for (const button of allBtn) {
             }
             mainDisplay.textContent = calculator.currentNum;
 
-        //------------- Input Operators -------------//
+            //------------- Input Operators -------------//
         } else if (button.className === 'btn operator') {
             if (calculator.previousNum !== '' && calculator.currentNum === '' && calculator.operator !== '') {
                 calculator.previousNum != calculator.currentNum;
@@ -46,7 +46,7 @@ for (const button of allBtn) {
                 mainDisplay.textContent = '0';
             }
 
-        //------------- Input Decimal -------------//  
+            //------------- Input Decimal -------------//  
         } else if (button.className === 'btn decimal') { //Decimal
             if (!calculator.currentNum.includes('.')) {
                 calculator.currentNum = calculator.currentNum + button.textContent;
@@ -120,7 +120,7 @@ function reset() {
 //------------- Keyboard Input -------------//
 addEventListener('keydown', (e) => {
 
-    if((e.key >= 0 && e.key <= 9) || e.key === '.') {
+    if ((e.key >= 0 && e.key <= 9) || e.key === '.') {
         if (calculator.currentNum.length > 13) {
             return calculator.currentNum;
         } else {
@@ -145,9 +145,15 @@ addEventListener('keydown', (e) => {
         }
         subDisplay.textContent = calculator.previousNum + calculator.operator;
 
-    } else if (e.key === 'Enter') {
-        alert('yes');
-    }
+    } 
+    
+    
+    // else if (e.key === 'Enter') {
+    //     op(parseFloat(calculator.previousNum), parseFloat(calculator.currentNum), calculator.operator);
+    //     calculator.previousNum = calculator.currentNum;
+    //     calculator.currentNum = '';
+    //     subDisplay.textContent = calculator.finalNumber;
+    // };
 
     console.log(calculator);
 });
