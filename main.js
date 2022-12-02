@@ -117,9 +117,12 @@ function reset() {
     console.log(calculator);
 }
 
+
 //------------- Keyboard Input -------------//
+
+//------------- Keyboard numbers -------------//
 addEventListener('keydown', (e) => {
-    if(e.key >= 0 && e.key <= 9) {
+    if((e.key >= 0 && e.key <= 9) || e.key === '.') {
         if (calculator.currentNum.length > 13) {
             return calculator.currentNum;
         } else {
