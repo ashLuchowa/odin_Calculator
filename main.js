@@ -114,6 +114,15 @@ function reset() {
 //------------- Keyboard Input -------------//
 addEventListener('keydown', (e) => {
 
+    //operator converter
+    if(calculator.operator === '-') {
+        calculator.operator = '−';
+    } else if (calculator.operator === '*') {
+        calculator.operator = '×';
+    } else if (calculator.operator === '/') {
+        calculator.operator = '÷';
+    }
+
     if ((e.key >= 0 && e.key <= 9) || e.key === '.') {
         if (calculator.currentNum.length > 13) {
             return calculator.currentNum;
@@ -122,7 +131,7 @@ addEventListener('keydown', (e) => {
         }
         mainDisplay.textContent = calculator.currentNum;
 
-    } else if (e.key === '+') {
+    } else if (e.key === '+' || e.key === '-' || e.key === '*' || e.key === '/') {
         if (calculator.previousNum !== '' && calculator.currentNum === '' && calculator.operator !== '') {
             calculator.previousNum != calculator.currentNum;
             calculator.operator = e.key;
