@@ -108,13 +108,7 @@ clearBtn.addEventListener('click', () => {
 
 //------------- Reset -------------//
 function reset() {
-    calculator.previousNum = '',
-    calculator.currentNum = '',
-    calculator.operator = '',
-    calculator.finalNumber = '',
-    subDisplay.textContent = '';
-    mainDisplay.textContent = '0';
-    console.log(calculator);
+    window.location.reload();
 }
 
 //------------- Keyboard Input -------------//
@@ -147,13 +141,13 @@ addEventListener('keydown', (e) => {
 
     } 
     
-    
-    // else if (e.key === 'Enter') {
-    //     op(parseFloat(calculator.previousNum), parseFloat(calculator.currentNum), calculator.operator);
-    //     calculator.previousNum = calculator.currentNum;
-    //     calculator.currentNum = '';
-    //     subDisplay.textContent = calculator.finalNumber;
-    // };
+    else if (e.keyCode === 13) {
+        op(parseFloat(calculator.previousNum), parseFloat(calculator.currentNum), calculator.operator);
+        calculator.previousNum = calculator.currentNum;
+        calculator.currentNum = '';
+        calculator.operator = '';
+        subDisplay.textContent = calculator.finalNumber;
+    };
 
     console.log(calculator);
 });
