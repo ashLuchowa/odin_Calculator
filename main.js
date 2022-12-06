@@ -138,16 +138,17 @@ addEventListener('keydown', (e) => {
             mainDisplay.textContent = '0';
         }
         subDisplay.textContent = calculator.previousNum + calculator.operator;
-
-    } 
-    
-    else if (e.keyCode === 13) {
+    } else if (e.keyCode === 13) {
         op(parseFloat(calculator.previousNum), parseFloat(calculator.currentNum), calculator.operator);
         calculator.previousNum = calculator.currentNum;
         calculator.currentNum = '';
         calculator.operator = '';
         subDisplay.textContent = calculator.finalNumber;
-    };
+        mainDisplay.textContent = '0';
+    } else if (e.keyCode === 8) {
+        calculator.currentNum = calculator.currentNum.slice(0, -1);
+        mainDisplay.textContent = calculator.currentNum;
+    }
 
     console.log(calculator);
 });
