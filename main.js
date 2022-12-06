@@ -4,6 +4,7 @@ const subDisplay = document.getElementById('display-sub');
 const allBtn = document.querySelectorAll('.btn');
 const clearBtn = document.getElementById('clr-btn');
 
+
 //------------- Calculator structure -------------//
 const calculator = {
     previousNum: '',
@@ -12,53 +13,80 @@ const calculator = {
     finalNumber: '',
 };
 
+
 //------------- Displays -------------//
 subDisplay.textContent = '';
 mainDisplay.textContent = '0';
 
-//------------- Press button -------------//
+
+//------------- Input Numbers -------------//
+function inputNum(inputVariation) {
+    if (calculator.currentNum.length > 13) {
+        return calculator.currentNum;
+    } else {
+        calculator.currentNum = calculator.currentNum + inputVariation;
+    }
+    mainDisplay.textContent = calculator.currentNum;
+}
+
+
+//------------- Input Operators -------------//
+function inputOperator(inputVariation) {
+    if (calculator.previousNum !== '' && calculator.currentNum === '' && calculator.operator !== '') {
+        calculator.previousNum != calculator.currentNum;
+        calculator.operator = inputVariation;
+    } else {
+        op(parseFloat(calculator.previousNum), parseFloat(calculator.currentNum), calculator.operator);
+        calculator.previousNum = calculator.currentNum;
+        calculator.operator = inputVariation;
+        calculator.currentNum = '';
+    }
+    //Execute finalNumber without using equal operator
+    if (calculator.finalNumber !== '') {
+        calculator.previousNum = Math.round(calculator.finalNumber * 10000) / 10000;
+        mainDisplay.textContent = '0';
+    }
+}
+
+
+//------------- Input Decimal -------------//
+function inputDecimal(inputVariation) {
+    if (!calculator.currentNum.includes('.')) {
+        calculator.currentNum = calculator.currentNum + inputVariation;
+        mainDisplay.textContent = mainDisplay.textContent + '.';
+    } else {
+        return;
+    }
+}
+
+
+//------------- Error when divide by 0 -------------//
+function divideByZero() {
+    mainDisplay.textContent = 'error';
+}
+
+
+//------------- Backspace -------------//
+function backspace() {
+    calculator.currentNum = calculator.currentNum.slice(0, -1);
+    mainDisplay.textContent = calculator.currentNum;
+}
+
+
+//---------------------------- Click Input ----------------------------//
 for (const button of allBtn) {
     button.addEventListener('click', () => {
 
-        //------------- Input Numbers -------------//
         if (button.className === 'btn number') {
-            if (calculator.currentNum.length > 13) {
-                return calculator.currentNum;
-            } else {
-                calculator.currentNum = calculator.currentNum + button.textContent;
-            }
-            mainDisplay.textContent = calculator.currentNum;
-
-            //------------- Input Operators -------------//
+            inputNum(button.textContent);
         } else if (button.className === 'btn operator') {
-            if (calculator.previousNum !== '' && calculator.currentNum === '' && calculator.operator !== '') {
-                calculator.previousNum != calculator.currentNum;
-                calculator.operator = button.textContent;
-            } else {
-                op(parseFloat(calculator.previousNum), parseFloat(calculator.currentNum), calculator.operator);
-                calculator.previousNum = calculator.currentNum;
-                calculator.operator = button.textContent;
-                calculator.currentNum = '';
-            }
-            //Execute finalNumber without using equal operator
-            if (calculator.finalNumber !== '') {
-                calculator.previousNum = Math.round(calculator.finalNumber * 10000) / 10000;
-                mainDisplay.textContent = '0';
-            }
-
-            //------------- Input Decimal -------------//  
-        } else if (button.className === 'btn decimal') { //Decimal
-            if (!calculator.currentNum.includes('.')) {
-                calculator.currentNum = calculator.currentNum + button.textContent;
-                mainDisplay.textContent = mainDisplay.textContent + '.';
-            } else {
-                return;
-            }
+            inputOperator(button.textContent);
+        } else if (button.className === 'btn decimal') {
+            inputDecimal(button.textContent);
         }
 
-        //------------- Error when divide by 0 -------------//
         if (calculator.currentNum === '0' && calculator.operator === '÷') {
-            mainDisplay.textContent = 'error';
+            divideByZero();
         }
 
         if (calculator.previousNum === Infinity && button.className === 'btn operator') {
@@ -73,10 +101,8 @@ for (const button of allBtn) {
             subDisplay.textContent = Math.round(calculator.finalNumber * 10000) / 10000;
         }
 
-        //------------- Press backspace -------------//
         if (button.id === 'del-btn') {
-            calculator.currentNum = calculator.currentNum.slice(0, -1);
-            mainDisplay.textContent = calculator.currentNum;
+            backspace();
         }
 
         //------------- Cannot input operator first -------------//
@@ -84,9 +110,10 @@ for (const button of allBtn) {
             reset();
         }
 
-        console.log(calculator);
+        // console.log(calculator);
     });
 };
+
 
 //------------- op Function -------------//
 function op(x, y, op) {
@@ -101,21 +128,24 @@ function op(x, y, op) {
     }
 };
 
+
 //------------- Clear Button -------------//
 clearBtn.addEventListener('click', () => {
     reset();
 });
+
 
 //------------- Reset -------------//
 function reset() {
     window.location.reload();
 }
 
-//------------- Keyboard Input -------------//
+
+//---------------------------- Keyboard Input ----------------------------//
 addEventListener('keydown', (e) => {
 
     //operator converter
-    if(calculator.operator === '-') {
+    if (calculator.operator === '-') {
         calculator.operator = '−';
     } else if (calculator.operator === '*') {
         calculator.operator = '×';
@@ -124,28 +154,9 @@ addEventListener('keydown', (e) => {
     }
 
     if ((e.key >= 0 && e.key <= 9) || e.key === '.') {
-        if (calculator.currentNum.length > 13) {
-            return calculator.currentNum;
-        } else {
-            calculator.currentNum = calculator.currentNum + e.key;
-        }
-        mainDisplay.textContent = calculator.currentNum;
-
+        inputNum(e.key);
     } else if (e.key === '+' || e.key === '-' || e.key === '*' || e.key === '/') {
-        if (calculator.previousNum !== '' && calculator.currentNum === '' && calculator.operator !== '') {
-            calculator.previousNum != calculator.currentNum;
-            calculator.operator = e.key;
-        } else {
-            op(parseFloat(calculator.previousNum), parseFloat(calculator.currentNum), calculator.operator);
-            calculator.previousNum = calculator.currentNum;
-            calculator.operator = e.key;
-            calculator.currentNum = '';
-        }
-        //Execute finalNumber without using equal operator
-        if (calculator.finalNumber !== '') {
-            calculator.previousNum = Math.round(calculator.finalNumber * 10000) / 10000;
-            mainDisplay.textContent = '0';
-        }
+        inputOperator(e.key);
         subDisplay.textContent = calculator.previousNum + calculator.operator;
     } else if (e.keyCode === 13) {
         op(parseFloat(calculator.previousNum), parseFloat(calculator.currentNum), calculator.operator);
@@ -155,9 +166,8 @@ addEventListener('keydown', (e) => {
         subDisplay.textContent = calculator.finalNumber;
         mainDisplay.textContent = '0';
     } else if (e.keyCode === 8) {
-        calculator.currentNum = calculator.currentNum.slice(0, -1);
-        mainDisplay.textContent = calculator.currentNum;
+        inputDecimal();
     }
 
-    console.log(calculator);
+    // console.log(calculator);
 });
