@@ -130,9 +130,9 @@ function op(x, y, op) {
 
 
 //------------- Click Clear -------------//
-clearBtn.addEventListener('click', (evt) => {
+clearBtn.addEventListener('click', () => {
     reset();
-    evt.preventDefault();
+    clearBtn.blur();
 });
 
 
