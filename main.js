@@ -110,7 +110,7 @@ for (const button of allBtn) {
             reset();
         }
 
-        // console.log(calculator);
+        console.log(calculator);
     });
 };
 
@@ -129,7 +129,7 @@ function op(x, y, op) {
 };
 
 
-//------------- Clear Button -------------//
+//------------- Click Clear -------------//
 clearBtn.addEventListener('click', () => {
     reset();
 });
@@ -137,7 +137,12 @@ clearBtn.addEventListener('click', () => {
 
 //------------- Reset -------------//
 function reset() {
-    window.location.reload();
+    calculator.previousNum = '';
+    calculator.currentNum = '';
+    calculator.operator = '';
+    calculator.finalNumber = '';
+    subDisplay.textContent = '';
+    mainDisplay.textContent = '0';
 }
 
 
@@ -167,7 +172,19 @@ addEventListener('keydown', (e) => {
         mainDisplay.textContent = '0';
     } else if (e.keyCode === 8) {
         inputDecimal();
+    } else if(e.key === 'Escape') {
+        reset();
     }
 
-    // console.log(calculator);
+    if (calculator.currentNum === '0' && calculator.operator === '÷') {
+        divideByZero();
+    }
+
+    if (calculator.previousNum === Infinity && (e.key === '+' || e.key === '-' || e.key === '*' || e.key === '/')) {
+        reset();
+    } else if (calculator.previousNum === Infinity && e.keyCode === 13) {
+        reset();
+    }
+
+    console.log(calculator);
 });
