@@ -110,7 +110,7 @@ for (const button of allBtn) {
             reset();
         }
 
-        // console.log(calculator);
+        console.log(calculator);
     });
 };
 
@@ -165,12 +165,8 @@ addEventListener('keydown', (e) => {
         inputOperator(e.key);
         subDisplay.textContent = calculator.previousNum + calculator.operator;
     } else if (e.key === 'Enter') {
-        op(parseFloat(calculator.previousNum), parseFloat(calculator.currentNum), calculator.operator);
-        calculator.previousNum = calculator.currentNum;
-        calculator.currentNum = '';
-        calculator.operator = '';
-        subDisplay.textContent = calculator.finalNumber;
-        mainDisplay.textContent = '0';
+        inputOperator(e.key);
+        subDisplay.textContent = calculator.previousNum;
     } else if (e.key === '.') {
         inputDecimal();
     } else if (e.key === 'Escape') {
@@ -196,5 +192,5 @@ addEventListener('keydown', (e) => {
         reset();
     }
 
-    // console.log(calculator);
+    console.log(calculator);
 });
