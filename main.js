@@ -130,8 +130,9 @@ function op(x, y, op) {
 
 
 //------------- Click Clear -------------//
-clearBtn.addEventListener('click', () => {
+clearBtn.addEventListener('click', (evt) => {
     reset();
+    evt.preventDefault();
 });
 
 
@@ -163,17 +164,19 @@ addEventListener('keydown', (e) => {
     } else if (e.key === '+' || e.key === '-' || e.key === '*' || e.key === '/') {
         inputOperator(e.key);
         subDisplay.textContent = calculator.previousNum + calculator.operator;
-    } else if (e.keyCode === 13) {
+    } else if (e.key === 'Enter') {
         op(parseFloat(calculator.previousNum), parseFloat(calculator.currentNum), calculator.operator);
         calculator.previousNum = calculator.currentNum;
         calculator.currentNum = '';
         calculator.operator = '';
         subDisplay.textContent = calculator.finalNumber;
         mainDisplay.textContent = '0';
-    } else if (e.keyCode === 8) {
+    } else if (e.key === '.') {
         inputDecimal();
     } else if(e.key === 'Escape') {
         reset();
+    } else {
+        e.preventDefault();
     }
 
     if (calculator.currentNum === '0' && calculator.operator === '÷') {
@@ -183,6 +186,11 @@ addEventListener('keydown', (e) => {
     if (calculator.previousNum === Infinity && (e.key === '+' || e.key === '-' || e.key === '*' || e.key === '/')) {
         reset();
     } else if (calculator.previousNum === Infinity && e.keyCode === 13) {
+        reset();
+    }
+
+    //------------- Cannot input operator first -------------//
+    if (calculator.currentNum === '' && (e.key === '+' || e.key === '-' || e.key === '*' || e.key === '/') && calculator.previousNum === '') {
         reset();
     }
 
