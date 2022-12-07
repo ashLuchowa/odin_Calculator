@@ -185,7 +185,7 @@ addEventListener('keydown', (e) => {
 
     if (calculator.previousNum === Infinity && (e.key === '+' || e.key === '-' || e.key === '*' || e.key === '/')) {
         reset();
-    } else if (calculator.previousNum === Infinity && e.keyCode === 13) {
+    } else if (calculator.previousNum === Infinity && e.key === 'Enter') {
         reset();
     }
 
