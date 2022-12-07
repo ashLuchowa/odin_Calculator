@@ -43,7 +43,7 @@ function inputOperator(inputVariation) {
     }
     //Execute finalNumber without using equal operator
     if (calculator.finalNumber !== '') {
-        calculator.previousNum = Math.round(calculator.finalNumber * 10000) / 10000;
+        calculator.previousNum = calculator.finalNumber;
         mainDisplay.textContent = '0';
     }
 }
@@ -98,7 +98,7 @@ for (const button of allBtn) {
         subDisplay.textContent = calculator.previousNum + calculator.operator;
 
         if (button.id === 'equal') {
-            subDisplay.textContent = Math.round(calculator.finalNumber * 10000) / 10000;
+            subDisplay.textContent = calculator.finalNumber;
         }
 
         if (button.id === 'del-btn') {
@@ -110,7 +110,7 @@ for (const button of allBtn) {
             reset();
         }
 
-        console.log(calculator);
+        // console.log(calculator);
     });
 };
 
@@ -194,5 +194,5 @@ addEventListener('keydown', (e) => {
         reset();
     }
 
-    console.log(calculator);
+    // console.log(calculator);
 });
