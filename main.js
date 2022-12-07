@@ -173,8 +173,10 @@ addEventListener('keydown', (e) => {
         mainDisplay.textContent = '0';
     } else if (e.key === '.') {
         inputDecimal();
-    } else if(e.key === 'Escape') {
+    } else if (e.key === 'Escape') {
         reset();
+    } else if (e.key === 'Backspace') {
+        backspace();
     } else {
         e.preventDefault();
     }
