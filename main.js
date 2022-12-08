@@ -62,6 +62,11 @@ function inputDecimal(inputVariation) {
 
 //------------- Error when divide by 0 -------------//
 function divideByZero() {
+    calculator.previousNum = '';
+    calculator.currentNum = '';
+    calculator.operator = '';
+    calculator.finalNumber = '';
+    subDisplay.textContent = '';
     mainDisplay.textContent = 'error';
 }
 
@@ -70,6 +75,38 @@ function divideByZero() {
 function backspace() {
     calculator.currentNum = calculator.currentNum.slice(0, -1);
     mainDisplay.textContent = calculator.currentNum;
+}
+
+
+//------------- op Function -------------//
+function op(x, y, op) {
+    if (op === '+') {
+        calculator.finalNumber = x + y;
+    } else if (op === '−') {
+        calculator.finalNumber = x - y;
+    } else if (op === '÷') {
+        calculator.finalNumber = x / y;
+    } else if (op === '×') {
+        calculator.finalNumber = x * y;
+    }
+};
+
+
+//------------- Click Clear -------------//
+clearBtn.addEventListener('click', () => {
+    reset();
+    clearBtn.blur();
+});
+
+
+//------------- Reset -------------//
+function reset() {
+    calculator.previousNum = '';
+    calculator.currentNum = '';
+    calculator.operator = '';
+    calculator.finalNumber = '';
+    subDisplay.textContent = '';
+    mainDisplay.textContent = '0';
 }
 
 
@@ -113,38 +150,6 @@ for (const button of allBtn) {
         console.log(calculator);
     });
 };
-
-
-//------------- op Function -------------//
-function op(x, y, op) {
-    if (op === '+') {
-        calculator.finalNumber = x + y;
-    } else if (op === '−') {
-        calculator.finalNumber = x - y;
-    } else if (op === '÷') {
-        calculator.finalNumber = x / y;
-    } else if (op === '×') {
-        calculator.finalNumber = x * y;
-    }
-};
-
-
-//------------- Click Clear -------------//
-clearBtn.addEventListener('click', () => {
-    reset();
-    clearBtn.blur();
-});
-
-
-//------------- Reset -------------//
-function reset() {
-    calculator.previousNum = '';
-    calculator.currentNum = '';
-    calculator.operator = '';
-    calculator.finalNumber = '';
-    subDisplay.textContent = '';
-    mainDisplay.textContent = '0';
-}
 
 
 //---------------------------- Keyboard Input ----------------------------//
