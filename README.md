@@ -1,11 +1,18 @@
 # odin_Calculator
 [live preview](https://ashluchowa.github.io/odin_Calculator/)
 
-## Note
-I learned a lot from practicing with this project. However I could not build a fully functional product. I have decided that I will move on and come back for another go later on.
+## What I learned the most from this project
+- Using Objects
+- Callback functions
+- If/Else statements improved
 
-## Things I missed
-- [X] Implement floating-point numbers
-- [X] 12 + 7 - 5 * 3 yeilds 42
-- [X] Backspace button added
-- [X] Keyboard support
+## Features
+- [x] Implement floating-point numbers
+- [x] 12 + 7 - 5 * 3 yields 42
+- [x] Backspace button added
+- [x] Clear button added
+- [x] Keyboard support
+- [x] Cannot divide by Zero
+- [x] Cannot use operators first
+- [x] Do not overflow screen with infinite input
+- [ ] Round results 
