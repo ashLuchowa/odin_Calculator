@@ -159,7 +159,7 @@ addEventListener('keydown', (e) => {
         calculator.operator = '÷';
     }
 
-    if ((e.key >= 0 && e.key <= 9) || e.key === '.') {
+    if ((e.key >= 0 && e.key <= 9)) {
         inputNum(e.key);
     } else if (e.key === '+' || e.key === '-' || e.key === '*' || e.key === '/') {
         inputOperator(e.key);
@@ -167,12 +167,12 @@ addEventListener('keydown', (e) => {
     } else if (e.key === 'Enter') {
         inputOperator(e.key);
         subDisplay.textContent = calculator.previousNum;
-    } else if (e.key === '.') {
-        inputDecimal();
     } else if (e.key === 'Escape') {
         reset();
     } else if (e.key === 'Backspace') {
         backspace();
+    } else if (e.key === '.') {
+        inputDecimal('.');
     } else {
         e.preventDefault();
     }
